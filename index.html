@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATG.com</title>
+  <style>
+    body {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Container for background images */
+    .background-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    /* Background images style */
+    .background-container img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    /* Show the active background image */
+    .background-container img.active {
+      opacity: 1;
+    }
+
+    /* Preloader styles */
+    #preloader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+    }
+
+    #preloader img {
+      width: 300px;
+      height: auto;
+    }
+
+    /* Hide landing page initially */
+    #landingPage {
+      display: none;
+      padding: 20px;
+    }
+
+    .container nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 25px;
+      position: relative; /* Added for mobile menu positioning */
+    }
+
+    .mylogo {
+      font-size: 50px;
+      padding: 0px 40px;
+    }
+
+    .navlist {
+      display: flex;
+      list-style: none;
+      margin-left: 0px;
+    }
+
+    .navlist a {
+      font-size: 20px;
+      text-decoration: none;
+      color: rgb(0, 0, 0);
+      margin-right: 25px;
+      transition: color 0.3s ease;
+    }
+
+    .navlist a li {
+      font-weight: 600;
+    }
+
+    .navlist a:hover {
+      color: rgb(255, 255, 255);
+    }
+
+    .mylogin button {
+      margin-right: 20px;
+      padding: 10px 30px;
+      border-radius: 20px;
+      border-style: none;
+      font-weight: 700;
+    }
+
+    /* Small navigation */
+    .small-nav {
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      padding: 5px 30px 0px 30px;
+    }
+
+    .mylogin button:hover {
+      background-color: rgb(42, 42, 221);
+      color: white;
+    }
+
+    #datetime {
+      font-size: 1.2em;
+      color: white;
+      text-align: right;
+    }
+
+    #day {
+      font-size: 1.2em;
+    }
+
+    #datetime:hover,
+    #day:hover {
+      color: rgb(233, 10, 162);
+    }
+
+    /* Mobile Navigation Styles */
+    .mobile-navlist {
+      display: none; /* Initially hidden */
+      position: absolute;
+      top: 70px; /* Adjust according to your layout */
+      
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 5px;
+      z-index: 10;
+      
+    }
+
+    .mobile-navlist li {
+      list-style: none;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .mobile-navlist a {
+      text-decoration: none;
+      color: rgb(0, 0, 0);
+    }
+
+    .mobile-menu-button {
+      display: none; /* Hidden on larger screens */
+      font-size: 30px;
+      background: transparent;
+      border: none;
+      color: black;
+      cursor: pointer;
+      margin-right: 40px;
+    }
+
+    /* Media Queries */
+    @media (max-width: 800px) {
+      .navlist {
+        display: none; /* Hide the desktop navigation */
+      }
+
+      .mobile-menu-button {
+        display: block; /* Show the mobile menu button */
+      }
+
+      .mobile-navlist.active {
+        display: block; /* Show when active */
+      }
+    }
+    @media (max-width: 1000px) {
+      .navlist {
+        display: none; /* Hide the desktop navigation */
+      }
+
+      .mobile-menu-button {
+        display: block; /* Show the mobile menu button */
+      }
+
+      .mobile-navlist.active {
+        display: block; /* Show when active */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preloader Section -->
+  <div id="preloader">
+    <img src="./images/logo25.png" alt="Loading Logo">
+  </div>
+
+  <!-- Small navigation with date and time -->
+  <div class="small-nav">
+    <div class="day1" id="day"></div>
+    <div class="datetime1" id="datetime"></div>
+  </div>
+
+  <!-- Background Slideshow -->
+  <div class="background-container">
+    <img src="./images/banner/2149406764.jpg" alt="Background 1" class="active">
+    <img src="./images/banner/2149406767.jpg" alt="Background 2">
+    <img src="./images/banner/2149901770.jpg" alt="Background 3">
+    <img src="./images/banner/2149901776.jpg" alt="Background 4">
+    <img src="./images/banner/2149901789.jpg" alt="Background 5">
+  </div>
+
+  <!-- Landing Page Section -->
+  <div id="landingPage">
+    <div class="container">
+      <nav>
+        <div class="mylogo">
+          <img src="./images/logo25.png" alt="Logo" width="80px" height="auto">
+        </div>
+        <div class="navlist" id="navlist">
+          <a href="#"><li>Home</li></a>
+          <a href="#"><li>About</li></a>
+          <a href="#"><li>Courses</li></a>
+          <a href="#"><li>Services</li></a>
+          <a href="#"><li>Contact Us</li></a>
+        </div>
+        <div class="mylogin">
+          <button>Login</button>
+          <button>Register</button>
+        </div>
+        <button id="mobileMenuButton" class="mobile-menu-button">☰</button>
+        <ul class="mobile-navlist" id="mobileNavlist">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Courses</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="sponcers">
+    <!-- Sponsors or other content can go here -->
+  </div>
+
+  <script>
+    // Function to simulate page load with a delay
+    window.addEventListener("load", function () {
+      setTimeout(function() {
+        document.getElementById("preloader").style.display = "none";
+        document.getElementById("landingPage").style.display = "block";
+      }, 500); // 0.5 second delay
+    });
+
+    // Update date and time
+    function updateDateTime() {
+      const options = { timeZone: 'Asia/Kolkata', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      const now = new Date();
+      const day = now.getDate();
+      const month = now.toLocaleString('default', { month: 'long' });
+      const year = now.getFullYear();
+      const date = `${day} ${month} ${year}`;
+      const time = now.toLocaleTimeString('en-US', options);
+      document.getElementById('datetime').innerHTML = `Date: ${date} | Time: ${time}`;
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    // Display the current day
+    const today = new Date();
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayName = days[today.getDay()];
+    document.getElementById('day').innerText = `Today: ${dayName}`;
+
+    // Background image slideshow
+    const images = document.querySelectorAll('.background-container img');
+    let currentIndex = 0;
+
+    function showImage(index) {
+      images.forEach((img, i) => {
+        img.classList.remove('active');
+        if (i === index) {
+          img.classList.add('active');
+        }
+      });
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
+    }
+
+    setInterval(nextImage, 5000); // Change image every 5 seconds
+
+    // Mobile menu toggle functionality
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileNavlist = document.getElementById('mobileNavlist');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileNavlist.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
