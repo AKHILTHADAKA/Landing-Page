@@ -107,48 +107,47 @@
       border-radius: 20px;
       border-style: none;
       font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    /* Small navigation */
-    .small-nav {
-      display: flex;
-      justify-content: space-between;
-      color: white;
-      padding: 5px 30px 0px 30px;
-    }
-
+    /* Button styles */
     .mylogin button:hover {
       background-color: rgb(42, 42, 221);
       color: white;
     }
-
+    .small-nav{
+      display: flex;
+      justify-content: space-between;
+      margin: 0px 20px;
+    }
     #datetime {
       font-size: 1.2em;
       color: white;
       text-align: right;
+      font-weight: 700;
     }
 
     #day {
       font-size: 1.2em;
+      color: white;
     }
 
     #datetime:hover,
     #day:hover {
-      color: rgb(233, 10, 162);
+      color: rgb(19, 42, 243);
     }
-
-    /* Mobile Navigation Styles */
+    /* Mobile Navigation Button Styles */
     .mobile-navlist {
       display: none; /* Initially hidden */
       position: absolute;
-      top: 70px; /* Adjust according to your layout */
-      
-      left: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 5px;
+      top: 40px; /* Adjust according to your layout */
+  
+      width: 95%;
+      background: rgba(255, 255, 255, 1);
+     
       z-index: 10;
-      
+      border-radius: 25px;
     }
 
     .mobile-navlist li {
@@ -160,6 +159,24 @@
     .mobile-navlist a {
       text-decoration: none;
       color: rgb(0, 0, 0);
+      display: block; /* Make full clickable area */
+    }
+
+    .mobile-navlist .mobile-button {
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      background-color: rgb(42, 42, 221); /* Default color */
+      color: white; /* Text color */
+      margin: 10px 0; /* Space between buttons */
+    }
+
+    .mobile-navlist .mobile-button:hover {
+      background-color: rgb(255, 255, 255); /* Hover color */
+      color: rgb(42, 42, 221); /* Text color on hover */
     }
 
     .mobile-menu-button {
@@ -173,22 +190,10 @@
     }
 
     /* Media Queries */
-    @media (max-width: 800px) {
-      .navlist {
-        display: none; /* Hide the desktop navigation */
-      }
-
-      .mobile-menu-button {
-        display: block; /* Show the mobile menu button */
-      }
-
-      .mobile-navlist.active {
-        display: block; /* Show when active */
-      }
-    }
     @media (max-width: 1000px) {
-      .navlist {
-        display: none; /* Hide the desktop navigation */
+      .navlist,
+      .mylogin {
+        display: none; /* Hide the desktop navigation and buttons */
       }
 
       .mobile-menu-button {
@@ -205,7 +210,7 @@
 
   <!-- Preloader Section -->
   <div id="preloader">
-    <img src="https://i.postimg.cc/L6fQGCtH/logo25.png" alt="Loading Logo">
+    <img src="./images/logo25.png" alt="Loading Logo">
   </div>
 
   <!-- Small navigation with date and time -->
@@ -216,11 +221,11 @@
 
   <!-- Background Slideshow -->
   <div class="background-container">
-    <img src="https://i.postimg.cc/90z5GGKD/2149406764.jpg" alt="Background 1" class="active">
-    <img src="https://i.postimg.cc/XNZnBWbQ/2149901770.jpg" alt="Background 2">
-    <img src="https://i.postimg.cc/tC3QFCmt/2149901776.jpg" alt="Background 3">
-    <img src="https://i.postimg.cc/XvXz1VxP/2149901789.jpg" alt="Background 4">
-    <img src="https://i.postimg.cc/yx7h5jsN/2150010125.jpg" alt="Background 5">
+    <img src="./images/banner/2149406764.jpg" alt="Background 1" class="active">
+    <img src="./images/banner/2149406767.jpg" alt="Background 2">
+    <img src="./images/banner/2149901770.jpg" alt="Background 3">
+    <img src="./images/banner/2149901776.jpg" alt="Background 4">
+    <img src="./images/banner/2149901789.jpg" alt="Background 5">
   </div>
 
   <!-- Landing Page Section -->
@@ -228,7 +233,7 @@
     <div class="container">
       <nav>
         <div class="mylogo">
-          <img src="https://i.postimg.cc/L6fQGCtH/logo25.png" alt="Logo" width="80px" height="auto">
+          <img src="./images/logo25.png" alt="Logo" width="80px" height="auto">
         </div>
         <div class="navlist" id="navlist">
           <a href="#"><li>Home</li></a>
@@ -248,6 +253,10 @@
           <li><a href="#">Courses</a></li>
           <li><a href="#">Services</a></li>
           <li><a href="#">Contact Us</a></li>
+          <li class="mobile-mylogin">
+            <button class="mobile-button">Login</button>
+            <button class="mobile-button">Register</button>
+          </li>
         </ul>
       </nav>
     </div>
@@ -284,29 +293,20 @@
     const today = new Date();
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayName = days[today.getDay()];
-    document.getElementById('day').innerText = `Today: ${dayName}`;
+    document.getElementById('day').innerHTML = dayName;
 
-    // Background image slideshow
+    // Background slideshow
     const images = document.querySelectorAll('.background-container img');
     let currentIndex = 0;
 
-    function showImage(index) {
-      images.forEach((img, i) => {
-        img.classList.remove('active');
-        if (i === index) {
-          img.classList.add('active');
-        }
-      });
-    }
-
-    function nextImage() {
+    function showNextImage() {
+      images[currentIndex].classList.remove('active');
       currentIndex = (currentIndex + 1) % images.length;
-      showImage(currentIndex);
+      images[currentIndex].classList.add('active');
     }
+    setInterval(showNextImage, 5000); // Change image every 5 seconds
 
-    setInterval(nextImage, 5000); // Change image every 5 seconds
-
-    // Mobile menu toggle functionality
+    // Mobile menu toggle
     const mobileMenuButton = document.getElementById('mobileMenuButton');
     const mobileNavlist = document.getElementById('mobileNavlist');
 
